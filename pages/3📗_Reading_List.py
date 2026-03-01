@@ -35,6 +35,20 @@ with tab2:
 
 with tab3:
     st.header("In-class presentation")
-    st.warning("Configuration options will be placed here.")
+    st.caption("Fetching the latest documentation from Github 'Collaboration26'.")
+
+    # ✅ Use the RAW URL to get the text content directly
+    readme_url = "https://raw.githubusercontent.com/MK316/Collaboration26/main/README.md"
+
+    try:
+        response = requests.get(readme_url)
+        if response.status_code == 200:
+            # Render the fetched text as Markdown
+            st.markdown(response.text)
+        else:
+            st.error(f"Failed to load the README file. (HTTP {response.status_code})")
+            st.info("Check if the repository is public and the URL is correct.")
+    except Exception as e:
+        st.error(f"An error occurred while fetching the file: {e}")
 
 
