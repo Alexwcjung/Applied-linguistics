@@ -35,7 +35,7 @@ with tab2:
     st.info("This is where your GitHub repositories will be listed.")
 
 with tab3:
-    st.caption("Fetching the latest documentation from Github [Collaboration26](https://github.com/MK316/Collaboration26).")
+    # st.caption("Fetching the latest documentation from Github [Collaboration26](https://github.com/MK316/Collaboration26).")
 
     # ✅ Use the RAW URL to get the text content directly
     readme_url = "https://raw.githubusercontent.com/MK316/Collaboration26/main/README.md"
