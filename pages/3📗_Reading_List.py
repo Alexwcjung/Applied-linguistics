@@ -8,7 +8,7 @@ st.set_page_config(page_title="Readings and in-class discussion")
 # st.caption("Readings and discussions")
 
 # 1. Define the tab names
-tab_labels = ["🏠 Reading list", "💦 In-class presentation", "📂 Discussions", ]
+tab_labels = ["🏠 Reading list", "💦 In-class presentation", "🖼️ Infographics", ]
 
 # 2. Create the tabs
 tab1, tab2, tab3 = st.tabs(tab_labels)
@@ -49,8 +49,8 @@ with tab2:
         st.error(f"An error occurred while fetching the file: {e}")
 
 with tab3:
-    st.header("🖼️ Infographics")
-    st.write("Select an image from the repository to view it.")
+    # st.header("🖼️ Infographics")
+    # st.write("Select an image from the repository to view it.")
 
     # 1. Define your images (Replace these with your actual filenames and raw links)
     # Format: "Display Name": "Raw GitHub URL"
