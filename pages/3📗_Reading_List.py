@@ -8,7 +8,7 @@ st.set_page_config(page_title="Readings and in-class discussion")
 # st.caption("Readings and discussions")
 
 # 1. Define the tab names
-tab_labels = ["🏠 Reading list", "Core idea", "💦 In-class presentation", "🖼️ Infographics", ]
+tab_labels = ["🏠 Reading list", "🌱 Core idea", "💦 In-class presentation", "🖼️ Infographics", ]
 
 # 2. Create the tabs
 tab1, tab2, tab3, tab4 = st.tabs(tab_labels)
