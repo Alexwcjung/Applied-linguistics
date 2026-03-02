@@ -8,10 +8,10 @@ st.set_page_config(page_title="Readings and in-class discussion")
 # st.caption("Readings and discussions")
 
 # 1. Define the tab names
-tab_labels = ["🏠 Reading list", "💦 In-class presentation", "🖼️ Infographics", ]
+tab_labels = ["🏠 Reading list", "Core idea", "💦 In-class presentation", "🖼️ Infographics", ]
 
 # 2. Create the tabs
-tab1, tab2, tab3 = st.tabs(tab_labels)
+tab1, tab2, tab3, tab4 = st.tabs(tab_labels)
 
 # 3. Add placeholders for content
 with tab1:
@@ -29,9 +29,26 @@ with tab1:
     
       📗 Spplementary book: _An Introduction to Applied Linguistics_ (2007; 2nd ed.) by A. Davies, Edinburgh University Press.
       """)
-
-
 with tab2:
+    st.markdown("### Core Idea")
+    
+    # 1. GitHub Raw URL 설정 (blob 대신 raw.githubusercontent.com 사용)
+    # 주의: 링크 주소에서 'blob/'을 삭제하고 도메인을 변경해야 합니다.
+    url = "https://raw.githubusercontent.com/MK316/Applied-linguistics/main/mdfiles/Core-idea.md"
+    
+    try:
+        # 2. GitHub로부터 마크다운 내용 가져오기
+        response = requests.get(url)
+        if response.status_code == 200:
+            md_content = response.text
+            # 3. 가져온 내용을 Streamlit에 렌더링
+            st.markdown(md_content)
+        else:
+            st.error(f"파일을 불러오지 못했습니다. (Status Code: {response.status_code})")
+    except Exception as e:
+        st.error(f"오류가 발생했습니다: {e}")
+
+with tab3:
     # st.caption("Fetching the latest documentation from Github [Collaboration26](https://github.com/MK316/Collaboration26).")
 
     # ✅ Use the RAW URL to get the text content directly
@@ -48,7 +65,7 @@ with tab2:
     except Exception as e:
         st.error(f"An error occurred while fetching the file: {e}")
 
-with tab3:
+with tab4:
     # st.header("🖼️ Infographics")
     # st.write("Select an image from the repository to view it.")
 
