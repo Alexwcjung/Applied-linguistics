@@ -1,5 +1,5 @@
 # Teaching Humanities in the AI Era
-## From Difficulty → Depth → Engagement
+## The Pedagogical Path: Difficulty $\rightarrow$ Depth $\rightarrow$ Engagement
 
 In humanities education, especially in the AI era, the central pedagogical challenge is not simply making learning easier or more entertaining. Rather, the challenge involves a developmental progression:
 
