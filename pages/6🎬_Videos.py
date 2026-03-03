@@ -92,8 +92,8 @@ CLASS_VIDEOS = {
         "url": "https://youtu.be/ya0trJ6qtOw",
         "caption": "Becoming a teacher-designer who shapes the learning environment through AI collaboration",
     },
-    "Week 02 · Digital tools overview": {
-        "url": "https://www.youtube.com/watch?v=VIDEO_ID_B",
+    "Week 01 · Humanistic Horizon: for English educator": {
+        "url": "https://youtu.be/pKKR7RVBlc0",
         "caption": "수업에서 사용할 디지털 도구와 활동 흐름 소개",
     },
 }
