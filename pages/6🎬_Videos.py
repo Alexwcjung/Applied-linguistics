@@ -88,9 +88,9 @@ VIDEOS = {
 }
 
 CLASS_VIDEOS = {
-    "Week 01 · Orientation": {
-        "url": "https://www.youtube.com/watch?v=VIDEO_ID_A",
-        "caption": "수업 목표, 평가 방식, 프로젝트 개요 안내",
+    "Week 01 · From Teacher to Creator": {
+        "url": "https://youtu.be/ya0trJ6qtOw",
+        "caption": "Becoming a teacher-designer who shapes the learning environment through AI collaboration",
     },
     "Week 02 · Digital tools overview": {
         "url": "https://www.youtube.com/watch?v=VIDEO_ID_B",
