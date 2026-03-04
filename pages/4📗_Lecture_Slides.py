@@ -25,37 +25,34 @@ def extract_numbers(s: str):
     return tuple(int(x) for x in nums) if nums else (10**9,)
 
 
-@st.cache_data(ttl=3600, show_spinner=False)
+@st.cache_data(ttl=60, show_spinner=False) # 테스트를 위해 캐시 시간을 1분으로 단축
 def list_png_files_in_folder(folder: str):
-    headers = {
-        "Accept": "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2022-11-28",
-    }
-
-    token = st.secrets.get("GITHUB_TOKEN", None)
+    headers = {"Accept": "application/vnd.github+json"}
+    token = st.secrets.get("GITHUB_TOKEN")
     if token:
-        # Works better with modern fine-grained tokens
         headers["Authorization"] = f"Bearer {token}"
 
-    # Encode folder safely (keep slashes)
     folder_enc = quote(folder, safe="/")
     url = f"{API_BASE}/{folder_enc}"
-    r = requests.get(url, headers=headers, params={"ref": BRANCH}, timeout=15)
+    
+    try:
+        r = requests.get(url, headers=headers, params={"ref": BRANCH}, timeout=15)
+        
+        if r.status_code == 404:
+            return [], f"폴더를 찾을 수 없습니다 (404). 경로명 대소문자를 확인하세요: `{folder}`"
+        if r.status_code != 200:
+            return [], f"GitHub API 오류 {r.status_code}: {r.reason}"
 
-    if r.status_code != 200:
-        return [], f"GitHub API error {r.status_code}: {r.text[:200]}"
-
-    data = r.json()
-    if not isinstance(data, list):
-        return [], f"Unexpected API response: {type(data)}"
-
-    pngs = [
-        item["name"] for item in data
-        if item.get("type") == "file"
-        and item.get("name", "").lower().endswith(".png")
-    ]
-    pngs.sort(key=lambda name: (extract_numbers(name), name.lower()))
-    return pngs, None
+        data = r.json()
+        # 파일명 추출 시 대소문자 무관하게 .png 체크
+        pngs = [
+            item["name"] for item in data
+            if item.get("type") == "file" and item["name"].lower().endswith(".png")
+        ]
+        pngs.sort(key=lambda name: (extract_numbers(name), name.lower()))
+        return pngs, None
+    except Exception as e:
+        return [], f"연결 오류: {str(e)}"
 
 
 
