@@ -4,7 +4,8 @@ from scipy import stats
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-st.set_page_config(page_title="T-test Analyzer Fix", layout="wide")
+# --- 1. 페이지 설정 ---
+st.set_page_config(page_title="Full T-test Analyzer", layout="wide")
 
 if 'data_loaded' not in st.session_state:
     st.session_state.data_loaded = False
@@ -17,6 +18,9 @@ st.title("📊 Step-by-Step T-test Analyzer")
 with st.expander("📝 테스트용 샘플 데이터 사용하기"):
     sample_link = "https://docs.google.com/spreadsheets/d/1k8SGYP7_SZDhDSdC4LVFl8rMsqdAUVHm3HK2HEClSDc/edit?usp=sharing"
     st.code(sample_link, language="text")
+    st.caption("위 링크를 복사하여 아래 URL 입력란에 붙여넣으세요.")
+
+st.divider()
 
 # --- Step 1: 데이터 로드 ---
 st.header("1️⃣ Step: Load Data")
@@ -27,7 +31,6 @@ def get_google_sheet(url):
     try:
         file_id = url.split('/')[-2]
         raw_url = f"https://docs.google.com/spreadsheets/d/{file_id}/export?format=csv"
-        # 데이터 로드 시 공백 제거 및 타입 추론 방지 옵션 추가
         return pd.read_csv(raw_url, skipinitialspace=True)
     except: return None
 
@@ -37,34 +40,28 @@ if st.button("📥 데이터 불러오기"):
         if df_raw is not None:
             st.session_state.df = df_raw
             st.session_state.data_loaded = True
-            st.session_state.analyzed = False # 새 데이터 로드 시 이전 결과 초기화
+            st.session_state.analyzed = False 
             st.success("데이터를 성공적으로 가져왔습니다!")
         else:
-            st.error("URL을 확인해주세요. (시트 공유 권한 확인 필수)")
+            st.error("URL을 확인해주세요.")
 
-# --- Step 2: 변수 선택 및 검증 ---
+# --- Step 2: 변수 선택 및 기술통계 ---
 if st.session_state.data_loaded:
     st.divider()
     st.header("2️⃣ Step: Select Variables & Descriptives")
-    df = st.session_state.df.copy() # 원본 보존
+    df = st.session_state.df.copy()
     cols = df.columns.tolist()
     
     col1, col2 = st.columns(2)
     group_col = col1.selectbox("독립변수 (Group):", cols, index=0)
     value_col = col2.selectbox("종속변수 (Value):", cols, index=1 if len(cols)>1 else 0)
     
-    # [데이터 인식 강화]
-    # 1. 수치 열 강제 변환 및 결측치 제거
+    # 데이터 클리닝
     df[value_col] = pd.to_numeric(df[value_col], errors='coerce')
-    
-    # 2. 분석에 사용할 깨끗한 데이터셋 생성
     clean_df = df.dropna(subset=[group_col, value_col])
-    
-    # 3. 감지된 집단 목록 확인
     detected_groups = sorted(clean_df[group_col].unique().tolist())
     
-    # 현재 감지된 상태를 보여주는 디버깅 메시지
-    st.write(f"🔍 **데이터 확인:** 현재 `{group_col}` 열에서 **{len(detected_groups)}개**의 집단이 감지되었습니다: `{detected_groups}`")
+    st.write(f"🔍 **데이터 확인:** `{group_col}` 열에서 **{len(detected_groups)}개** 집단 감지: `{detected_groups}`")
 
     if st.button("🔍 분석 실행"):
         if len(detected_groups) == 2:
@@ -74,12 +71,13 @@ if st.session_state.data_loaded:
             st.session_state.group_col = group_col
             st.session_state.value_col = value_col
         else:
-            st.error(f"T-test를 위해서는 집단이 정확히 2개여야 합니다. (현재 감지된 집단: {detected_groups})")
-            st.info("💡 **해결 방법:** 구글 시트에서 집단 이름에 오타가 있거나, 데이터가 비어있지 않은지 확인해주세요.")
+            st.error(f"T-test를 위해서는 집단이 2개여야 합니다. (현재: {len(detected_groups)}개)")
 
-# --- Step 3: 결과 출력 ---
+# --- Step 3: 결과 및 시각화 ---
 if st.session_state.analyzed:
     st.divider()
+    st.header("3️⃣ Step: Results & Visualization")
+    
     df = st.session_state.clean_df
     groups = st.session_state.groups
     g_col = st.session_state.group_col
@@ -88,24 +86,50 @@ if st.session_state.analyzed:
     g1 = df[df[g_col] == groups[0]][v_col]
     g2 = df[df[g_col] == groups[1]][v_col]
     
+    # 📋 기술통계
     st.subheader("📋 Descriptive Statistics")
     desc = df.groupby(g_col)[v_col].agg(['count', 'mean', 'std']).reset_index()
     st.table(desc)
 
+    # 📝 T-test 결과
     t_stat, p_val = stats.ttest_ind(g1, g2)
     c1, c2, c3 = st.columns(3)
     c1.metric("T-value", f"{t_stat:.4f}")
     c2.metric("P-value", f"{p_val:.4f}")
-    c3.metric("Result", "Significant" if p_val < 0.05 else "Not Significant")
+    c4 = "Significant" if p_val < 0.05 else "Not Sig."
+    c3.metric("Result", c4)
 
-    # 시각화 부분은 동일하게 유지하되 palette 에러 방지용 리스트 사용
-    palette_options = ["Set2", "coolwarm", "viridis", "pastel"]
-    palette = st.selectbox("색상 테마:", palette_options)
+    # 📈 시각화 (복구된 옵션들)
+    st.subheader("📊 Visualization Options")
+    v_col_opt, v_col_plot = st.columns([1, 2.5])
     
-    fig, ax = plt.subplots(figsize=(8, 5))
-    sns.boxplot(x=g_col, y=v_col, data=df, palette=palette, ax=ax, hue=g_col, legend=False)
-    st.pyplot(fig)
+    with v_col_opt:
+        chart_type = st.radio("그래프 종류:", ["Box Plot", "Histogram", "Bar Plot (Mean)"])
+        palette = st.selectbox("색상 테마:", ["Set2", "coolwarm", "viridis", "pastel", "magma"])
+        show_points = st.checkbox("데이터 포인트 표시", value=True)
     
-    if st.button("🔄 리셋하고 처음부터 하기"):
+    with v_col_plot:
+        fig, ax = plt.subplots(figsize=(8, 5))
+        if chart_type == "Box Plot":
+            sns.boxplot(x=g_col, y=v_col, data=df, palette=palette, ax=ax, hue=g_col, legend=False)
+            if show_points:
+                sns.stripplot(x=g_col, y=v_col, data=df, color="black", alpha=0.3, ax=ax)
+        elif chart_type == "Histogram":
+            sns.histplot(data=df, x=v_col, hue=g_col, kde=True, palette=palette, ax=ax, element="step")
+        elif chart_type == "Bar Plot (Mean)":
+            sns.barplot(x=g_col, y=v_col, data=df, palette=palette, ax=ax, errorbar='sd', hue=g_col)
+        
+        ax.set_title(f"{chart_type} of {v_col} by {g_col}")
+        st.pyplot(fig)
+
+    # 📄 APA 리포트
+    st.subheader("📌 APA Style Report")
+    report = f"독립표본 t-검정 결과, {groups[0]} 집단(M={g1.mean():.2f}, SD={g1.std():.2f})과 " \
+             f"{groups[1]} 집단(M={g2.mean():.2f}, SD={g2.std():.2f}) 간의 차이는 " \
+             f"통계적으로 {'유의미하였다' if p_val < 0.05 else '유의미하지 않았다'} " \
+             f"(t = {t_stat:.2f}, p = {p_val:.4f})."
+    st.code(report, language="text")
+
+    if st.button("🔄 전체 초기화"):
         for key in list(st.session_state.keys()): del st.session_state[key]
         st.rerun()
