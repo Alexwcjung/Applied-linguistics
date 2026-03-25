@@ -6,11 +6,11 @@ import seaborn as sns
 
 st.set_page_config(page_title="Advanced T-test Analyzer", layout="wide")
 st.title("📊 T-test Analyzer & Visualizer")
-st.info("Sample data link: <br>
+st.info("""Sample data link: <br>
         https://docs.google.com/spreadsheets/d/1k8SGYP7_SZDhDSdC4LVFl8rMsqdAUVHm3HK2HEClSDc/edit?usp=sharing
 
 
-        ")
+        """)
 # --- 1. 데이터 로드부 ---
 sheet_url = st.text_input("구글 시트 주소를 입력하세요:", 
                          placeholder="https://docs.google.com/spreadsheets/d/.../edit?usp=sharing")
