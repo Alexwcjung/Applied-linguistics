@@ -93,6 +93,10 @@ CLASS_VIDEOS = {
         "url": "https://youtu.be/bRVTDYAfj3M",
         "caption": "인공지능 시대의 새로운 문해력 정의 및 접근방식",
     },  
+    "Week 04 · AI-CFT: UNESCO (2024)": {
+        "url": "https://youtu.be/eehiwV8_3fQ?si=sGWmka1OTSnrDzng",
+        "caption": "인공지능 시대, 교사를 위한 AI 역량 프레임워크 (UNESCO, 2024)",
+    },
 }
 
 SUMMARY_FILES = {
