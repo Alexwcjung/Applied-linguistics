@@ -162,7 +162,7 @@ with tab6:
 
 with tab7:
     st.caption("Learn how to deploy your code to build a web application using Streamlit.")    
-    with open("https://raw.githubusercontent.com/MK316/Applied-linguistics/main/pages/streamlit.md", "r", encoding="utf-8") as f:
+    with open("https://raw.githubusercontent.com/MK316/Applied-linguistics/refs/heads/main/pages/streamlit.md", "r", encoding="utf-8") as f:
         md_text = f.read()
 
     st.markdown(md_text)
