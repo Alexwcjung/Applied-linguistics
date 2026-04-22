@@ -8,6 +8,10 @@
 
 
 ### 2. App deployment online
++ Gradio
++ [Huggingface](https://github.com/MK316/Coding4ET/blob/main/Lessons/huggingface_deploy.ipynb)
++ Streamlit
++ And more
 
 ![streamlit](https://github.com/MK316/Applied-linguistics/raw/main/pages/images/deploy1.png)
 
