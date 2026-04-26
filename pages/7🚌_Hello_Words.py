@@ -5,7 +5,7 @@ import io
 st.set_page_config(page_title="Easy English Word Quiz", layout="centered")
 
 st.title("✨Alex선생님과 함께하는 영어 단어 퀴즈🚀")
-st.caption("20개의 쉬운 영어 단어 뜻 맞히기 · 3지선다 퀴즈 · 듣기 포함")
+st.caption("그림을 보고, 발음을 듣고, 영어 단어의 뜻을 고르세요.")
 
 TOTAL_QUESTIONS = 20
 
@@ -25,26 +25,26 @@ def make_audio(word):
 # 학생마다 같은 순서로 나오도록 random.shuffle 사용 안 함
 # ---------------------------
 word_data = [
-    {"word": "run", "answer": "달리다", "choices": ["달리다", "말하다", "축구하다"]},
-    {"word": "talk", "answer": "말하다", "choices": ["말하다", "앉다", "닫다"]},
-    {"word": "eat", "answer": "먹다", "choices": ["먹다", "자다", "걷다"]},
-    {"word": "sleep", "answer": "자다", "choices": ["웃다", "자다", "마시다"]},
-    {"word": "drink", "answer": "마시다", "choices": ["열다", "마시다", "던지다"]},
-    {"word": "go", "answer": "가다", "choices": ["오다", "가다", "보다"]},
-    {"word": "come", "answer": "오다", "choices": ["오다", "쓰다", "듣다"]},
-    {"word": "see", "answer": "보다", "choices": ["보다", "팔다", "씻다"]},
-    {"word": "read", "answer": "읽다", "choices": ["읽다", "울다", "만들다"]},
-    {"word": "write", "answer": "쓰다", "choices": ["쓰다", "타다", "닫다"]},
-    {"word": "open", "answer": "열다", "choices": ["씻다", "열다", "웃다"]},
-    {"word": "close", "answer": "닫다", "choices": ["닫다", "춤추다", "돕다"]},
-    {"word": "sit", "answer": "앉다", "choices": ["서다", "앉다", "자르다"]},
-    {"word": "stand", "answer": "서다", "choices": ["날다", "서다", "그리다"]},
-    {"word": "walk", "answer": "걷다", "choices": ["걷다", "노래하다", "수영하다"]},
-    {"word": "jump", "answer": "뛰다", "choices": ["기다리다", "뛰다", "배우다"]},
-    {"word": "laugh", "answer": "웃다", "choices": ["웃다", "주다", "끝내다"]},
-    {"word": "cry", "answer": "울다", "choices": ["울다", "찾다", "잃어버리다"]},
-    {"word": "sing", "answer": "노래하다", "choices": ["노래하다", "일어나다", "공부하다"]},
-    {"word": "swim", "answer": "수영하다", "choices": ["수영하다", "요리하다", "청소하다"]},
+    {"word": "run", "answer": "달리다", "picture": "🏃", "choices": ["달리다", "말하다", "축구하다"]},
+    {"word": "talk", "answer": "말하다", "picture": "🗣️", "choices": ["말하다", "앉다", "닫다"]},
+    {"word": "eat", "answer": "먹다", "picture": "🍽️", "choices": ["먹다", "자다", "걷다"]},
+    {"word": "sleep", "answer": "자다", "picture": "😴", "choices": ["웃다", "자다", "마시다"]},
+    {"word": "drink", "answer": "마시다", "picture": "🥤", "choices": ["열다", "마시다", "던지다"]},
+    {"word": "go", "answer": "가다", "picture": "➡️", "choices": ["오다", "가다", "보다"]},
+    {"word": "come", "answer": "오다", "picture": "👋", "choices": ["오다", "쓰다", "듣다"]},
+    {"word": "see", "answer": "보다", "picture": "👀", "choices": ["보다", "팔다", "씻다"]},
+    {"word": "read", "answer": "읽다", "picture": "📖", "choices": ["읽다", "울다", "만들다"]},
+    {"word": "write", "answer": "쓰다", "picture": "✏️", "choices": ["쓰다", "타다", "닫다"]},
+    {"word": "open", "answer": "열다", "picture": "📂", "choices": ["씻다", "열다", "웃다"]},
+    {"word": "close", "answer": "닫다", "picture": "🚪", "choices": ["닫다", "춤추다", "돕다"]},
+    {"word": "sit", "answer": "앉다", "picture": "🪑", "choices": ["서다", "앉다", "자르다"]},
+    {"word": "stand", "answer": "서다", "picture": "🧍", "choices": ["날다", "서다", "그리다"]},
+    {"word": "walk", "answer": "걷다", "picture": "🚶", "choices": ["걷다", "노래하다", "수영하다"]},
+    {"word": "jump", "answer": "뛰다", "picture": "🤾", "choices": ["기다리다", "뛰다", "배우다"]},
+    {"word": "laugh", "answer": "웃다", "picture": "😂", "choices": ["웃다", "주다", "끝내다"]},
+    {"word": "cry", "answer": "울다", "picture": "😭", "choices": ["울다", "찾다", "잃어버리다"]},
+    {"word": "sing", "answer": "노래하다", "picture": "🎤", "choices": ["노래하다", "일어나다", "공부하다"]},
+    {"word": "swim", "answer": "수영하다", "picture": "🏊", "choices": ["수영하다", "요리하다", "청소하다"]},
 ]
 
 # ---------------------------
@@ -54,9 +54,6 @@ if "quiz_data" not in st.session_state:
     st.session_state.quiz_data = word_data.copy()
 
 if "stage" not in st.session_state:
-    # stage 1: 전체 문제 풀이
-    # stage 2: 오답 문제 다시 풀이
-    # stage 3: 최종 결과 및 정답 공개
     st.session_state.stage = 1
 
 if "wrong_indices" not in st.session_state:
@@ -81,26 +78,66 @@ st.markdown("---")
 quiz_data = st.session_state.quiz_data
 
 # ---------------------------
+# 문제 화면 출력 함수
+# ---------------------------
+def show_question(i, item, radio_key, label):
+    word_display = item["word"].capitalize()
+
+    st.markdown(
+        f"""
+        <div style="
+            background-color: #f8fbff;
+            border: 2px solid #dfe8ff;
+            border-radius: 24px;
+            padding: 28px;
+            margin-bottom: 22px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        ">
+            <div style="
+                font-size: 96px;
+                margin-bottom: 10px;
+            ">
+                {item['picture']}
+            </div>
+
+            <div style="
+                font-size: 52px;
+                font-weight: 800;
+                color: #1f4e79;
+                margin-top: 8px;
+                margin-bottom: 6px;
+            ">
+                {word_display}
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.write(f"### {i+1}. Listen and choose the meaning.")
+
+    audio_bytes = make_audio(item["word"])
+    st.audio(audio_bytes, format="audio/mp3")
+
+    st.radio(
+        label,
+        item["choices"],
+        key=radio_key,
+        index=None
+    )
+
+    st.markdown("---")
+
+# ---------------------------
 # 1단계: 전체 문제 풀이
 # ---------------------------
 if st.session_state.stage == 1:
     st.subheader("1차 풀이")
-    st.caption("단어를 보고, 듣고, 알맞은 뜻을 고르세요.")
+    st.caption("그림을 보고, 발음을 듣고, 영어 단어의 뜻을 고르세요.")
 
     for i, item in enumerate(quiz_data):
-        st.write(f"### {i+1}. {item['word']}")
-
-        audio_bytes = make_audio(item["word"])
-        st.audio(audio_bytes, format="audio/mp3")
-
-        st.radio(
-            "뜻을 고르세요.",
-            item["choices"],
-            key=f"q1_{i}",
-            index=None
-        )
-
-        st.markdown("---")
+        show_question(i, item, f"q1_{i}", "뜻을 고르세요.")
 
     if st.button("1차 제출"):
         wrong_indices = []
@@ -138,23 +175,11 @@ elif st.session_state.stage == 2:
 
     st.markdown("---")
     st.subheader("오답 다시 풀기")
-    st.caption("틀린 문제만 다시 풀어 보세요. 다시 듣기도 가능합니다.")
+    st.caption("틀린 문제만 다시 풀어 보세요.")
 
     for idx in wrong_indices:
         item = quiz_data[idx]
-        st.write(f"### {idx+1}. {item['word']}")
-
-        audio_bytes = make_audio(item["word"])
-        st.audio(audio_bytes, format="audio/mp3")
-
-        st.radio(
-            "다시 뜻을 고르세요.",
-            item["choices"],
-            key=f"q2_{idx}",
-            index=None
-        )
-
-        st.markdown("---")
+        show_question(idx, item, f"q2_{idx}", "다시 뜻을 고르세요.")
 
     if st.button("다시 풀기 제출"):
         additional_correct = 0
@@ -192,14 +217,38 @@ elif st.session_state.stage == 3:
     st.subheader("정답 확인")
 
     for i, item in enumerate(quiz_data):
-        first_answer = st.session_state.get(f"q1_{i}")
-        second_answer = st.session_state.get(f"q2_{i}") if f"q2_{i}" in st.session_state else None
+        word_display = item["word"].capitalize()
 
-        st.write(f"### {i+1}. {item['word']}")
+        st.markdown(
+            f"""
+            <div style="
+                background-color: #fffdf7;
+                border: 2px solid #ffe7b8;
+                border-radius: 24px;
+                padding: 24px;
+                margin-bottom: 14px;
+                text-align: center;
+            ">
+                <div style="font-size: 80px;">{item['picture']}</div>
+                <div style="
+                    font-size: 46px;
+                    font-weight: 800;
+                    color: #1f4e79;
+                ">
+                    {word_display}
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
         audio_bytes = make_audio(item["word"])
         st.audio(audio_bytes, format="audio/mp3")
 
+        first_answer = st.session_state.get(f"q1_{i}")
+        second_answer = st.session_state.get(f"q2_{i}") if f"q2_{i}" in st.session_state else None
+
+        st.write(f"### {i+1}. {word_display}")
         st.write(f"- 정답: **{item['answer']}**")
 
         if second_answer is not None:
