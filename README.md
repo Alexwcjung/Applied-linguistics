@@ -34,7 +34,7 @@ This app could be improved by adding:
 - vocabulary support for difficult words
 
 ## 9. App Link
-[APP link](): 
+[APP link](): https://miniproject-epfq3zrjqsersgbtoxy8t2.streamlit.app/ 
 
 ## 10. Reflection
 Through this project, I learned how a simple coding-based app can support language learning.  
