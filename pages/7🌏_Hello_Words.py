@@ -4,7 +4,7 @@ import io
 
 st.set_page_config(page_title="Easy English Word Quiz", layout="centered")
 
-st.title("✨Alex선생님과 함께하는 영어 단어 퀴즈🚀")
+st.title("✨Alex선생님과 함께하는 영어 단어 퀴즈🚌")
 st.caption("그림을 보고, 발음을 듣고, 영어 단어의 뜻을 고르세요.")
 
 TOTAL_QUESTIONS = 20
