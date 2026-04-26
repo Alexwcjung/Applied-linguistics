@@ -81,12 +81,6 @@ st.markdown(
             🔤 <b>Word Quiz</b>: Learn basic words with pictures and sounds
         </p>
         <p style="font-size:23px; line-height:1.8; margin:10px 0;">
-            ⏳ <b>Tense Practice</b>: Practice present, past, future, and present progressive
-        </p>
-        <p style="font-size:23px; line-height:1.8; margin:10px 0;">
-            📖 <b>Lecture Slides</b>: Read short passages and class materials
-        </p>
-        <p style="font-size:23px; line-height:1.8; margin:10px 0;">
             🧰 <b>Class Apps</b>: Use tools for classroom activities
         </p>
     </div>
