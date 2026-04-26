@@ -20,6 +20,7 @@ def make_audio(word):
     audio_fp.seek(0)
     return audio_fp.getvalue()
 
+
 # ---------------------------
 # 단어 목록 20개
 # 학생마다 같은 순서로 나오도록 random.shuffle 사용 안 함
@@ -47,6 +48,7 @@ word_data = [
     {"word": "swim", "answer": "수영하다", "picture": "🏊", "choices": ["수영하다", "요리하다", "청소하다"]},
 ]
 
+
 # ---------------------------
 # 세션 상태 초기화
 # ---------------------------
@@ -68,6 +70,7 @@ if "first_score" not in st.session_state:
 if "final_score" not in st.session_state:
     st.session_state.final_score = 0
 
+
 # ---------------------------
 # 다시 시작
 # ---------------------------
@@ -80,11 +83,13 @@ st.markdown("---")
 
 quiz_data = st.session_state.quiz_data
 
+
 # ---------------------------
 # 문제 화면 출력 함수
 # ---------------------------
 def show_question(i, item, radio_key, label):
     word_display = item["word"].capitalize()
+    picture = item.get("picture", "❓")
 
     st.markdown(
         f"""
@@ -101,7 +106,7 @@ def show_question(i, item, radio_key, label):
                 font-size: 100px;
                 margin-bottom: 8px;
             ">
-                {item['picture']}
+                {picture}
             </div>
 
             <div style="
@@ -224,6 +229,7 @@ elif st.session_state.stage == 3:
 
     for i, item in enumerate(quiz_data):
         word_display = item["word"].capitalize()
+        picture = item.get("picture", "❓")
 
         st.markdown(
             f"""
@@ -236,7 +242,7 @@ elif st.session_state.stage == 3:
                 text-align: center;
                 box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             ">
-                <div style="font-size: 86px;">{item['picture']}</div>
+                <div style="font-size: 86px;">{picture}</div>
                 <div style="
                     font-size: 46px;
                     font-weight: 800;
