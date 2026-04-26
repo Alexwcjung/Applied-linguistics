@@ -56,9 +56,6 @@ if "quiz_data" not in st.session_state:
     st.session_state.quiz_data = word_data.copy()
 
 if "stage" not in st.session_state:
-    # stage 1: 전체 문제 풀이
-    # stage 2: 오답 문제 다시 풀이
-    # stage 3: 최종 결과 및 정답 공개
     st.session_state.stage = 1
 
 if "wrong_indices" not in st.session_state:
@@ -88,46 +85,41 @@ quiz_data = st.session_state.quiz_data
 # 문제 화면 출력 함수
 # ---------------------------
 def show_question(i, item, radio_key, label):
-    word_display = item["word"].capitalize()
     picture = item.get("picture", "❓")
 
+    # 1. 문제 먼저 표시
+    st.write(f"### {i+1}. Listen and choose the meaning.")
+
+    # 2. 밑에 작은 그림 표시
     st.markdown(
         f"""
         <div style="
+            width: 120px;
             background-color: #f8fbff;
-            border: 2px solid #dfe8ff;
-            border-radius: 24px;
-            padding: 28px;
-            margin-bottom: 20px;
+            border: 1.5px solid #dfe8ff;
+            border-radius: 16px;
+            padding: 10px;
+            margin-top: 6px;
+            margin-bottom: 10px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
         ">
             <div style="
-                font-size: 100px;
-                margin-bottom: 8px;
+                font-size: 54px;
+                line-height: 1.1;
             ">
                 {picture}
-            </div>
-
-            <div style="
-                font-size: 54px;
-                font-weight: 800;
-                color: #1f4e79;
-                margin-top: 8px;
-                margin-bottom: 4px;
-            ">
-                {word_display}
             </div>
         </div>
         """,
         unsafe_allow_html=True
     )
 
-    st.write(f"### {i+1}. Listen and choose the meaning.")
-
+    # 3. 발음 듣기
     audio_bytes = make_audio(item["word"])
     st.audio(audio_bytes, format="audio/mp3")
 
+    # 4. 3지선다
     st.radio(
         label,
         item["choices"],
@@ -143,7 +135,7 @@ def show_question(i, item, radio_key, label):
 # ---------------------------
 if st.session_state.stage == 1:
     st.subheader("1차 풀이")
-    st.caption("그림을 보고, 발음을 듣고, 영어 단어의 뜻을 고르세요.")
+    st.caption("문제를 보고, 그림과 발음을 확인한 뒤 알맞은 뜻을 고르세요.")
 
     for i, item in enumerate(quiz_data):
         show_question(i, item, f"q1_{i}", "뜻을 고르세요.")
@@ -185,7 +177,7 @@ elif st.session_state.stage == 2:
 
     st.markdown("---")
     st.subheader("오답 다시 풀기")
-    st.caption("틀린 문제만 다시 풀어 보세요. 그림과 발음을 다시 확인할 수 있습니다.")
+    st.caption("틀린 문제만 다시 풀어 보세요.")
 
     for idx in wrong_indices:
         item = quiz_data[idx]
@@ -228,27 +220,29 @@ elif st.session_state.stage == 3:
     st.subheader("정답 확인")
 
     for i, item in enumerate(quiz_data):
-        word_display = item["word"].capitalize()
         picture = item.get("picture", "❓")
+        word_display = item["word"].capitalize()
+
+        st.write(f"### {i+1}. {word_display}")
 
         st.markdown(
             f"""
             <div style="
+                width: 110px;
                 background-color: #fffdf7;
-                border: 2px solid #ffe7b8;
-                border-radius: 24px;
-                padding: 24px;
-                margin-bottom: 14px;
+                border: 1.5px solid #ffe7b8;
+                border-radius: 16px;
+                padding: 10px;
+                margin-top: 6px;
+                margin-bottom: 10px;
                 text-align: center;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+                box-shadow: 0 2px 6px rgba(0,0,0,0.04);
             ">
-                <div style="font-size: 86px;">{picture}</div>
                 <div style="
-                    font-size: 46px;
-                    font-weight: 800;
-                    color: #1f4e79;
+                    font-size: 50px;
+                    line-height: 1.1;
                 ">
-                    {word_display}
+                    {picture}
                 </div>
             </div>
             """,
@@ -261,7 +255,6 @@ elif st.session_state.stage == 3:
         first_answer = st.session_state.get(f"q1_{i}")
         second_answer = st.session_state.get(f"q2_{i}") if f"q2_{i}" in st.session_state else None
 
-        st.write(f"### {i+1}. {word_display}")
         st.write(f"- 정답: **{item['answer']}**")
 
         if second_answer is not None:
