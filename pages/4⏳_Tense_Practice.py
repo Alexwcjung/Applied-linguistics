@@ -5,6 +5,34 @@ st.set_page_config(page_title="Tense Practice", layout="centered")
 st.title("⏳ Tense Practice")
 st.caption("현재형, 현재진행형, 과거형, 미래형 중 알맞은 표현을 고르세요.")
 
+st.markdown(
+    """
+    <div style="
+        background-color: #f8fbff;
+        border: 1.5px solid #dfe8ff;
+        border-radius: 18px;
+        padding: 18px 22px;
+        margin-top: 12px;
+        margin-bottom: 24px;
+        font-size: 18px;
+        line-height: 1.8;
+    ">
+        <b>📌 시제 간단 정리</b><br>
+        ✅ <b>현재형</b>: 항상 일어나는 일이나 반복되는 일을 말할 때 사용합니다.<br>
+        예) I <b>eat</b> breakfast every morning.<br><br>
+
+        ✅ <b>현재진행형</b>: 지금 하고 있는 일을 말할 때 사용합니다. <b>be동사 + 동사-ing</b><br>
+        예) She <b>is reading</b> a book now.<br><br>
+
+        ✅ <b>과거형</b>: 이미 일어난 일을 말할 때 사용합니다. 규칙동사는 보통 <b>동사 + ed</b><br>
+        예) They <b>played</b> soccer yesterday.<br><br>
+
+        ✅ <b>미래형</b>: 앞으로 일어날 일을 말할 때 사용합니다. <b>will + 동사원형</b><br>
+        예) He <b>will meet</b> his friend tomorrow.
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 TOTAL_QUESTIONS = 20
 
 quiz_data = [
