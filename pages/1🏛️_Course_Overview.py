@@ -1,31 +1,55 @@
 import streamlit as st
 
-st.caption("Fun English · Spring 2026")
-
 st.markdown(
     """
     <div style="
-        background: linear-gradient(135deg, #f8fbff, #eef5ff);
-        border: 2px solid #dfe8ff;
-        border-radius: 26px;
-        padding: 34px 28px;
+        background: linear-gradient(135deg, #ffffff 0%, #f3f8ff 55%, #eef6ff 100%);
+        border: 1.5px solid #d9e7ff;
+        border-radius: 34px;
+        padding: 42px 34px;
         text-align: center;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-        margin-bottom: 28px;
+        box-shadow: 0 10px 28px rgba(31,78,121,0.12);
+        margin-bottom: 32px;
+        position: relative;
+        overflow: hidden;
     ">
-        <div style="font-size: 60px; margin-bottom: 8px;">🌱📚✨</div>
+        <div style="
+            font-size: 64px;
+            margin-bottom: 10px;
+            letter-spacing: 6px;
+        ">
+            🌱 📚 ✨
+        </div>
+
+        <div style="
+            display: inline-block;
+            background-color: #eaf3ff;
+            color: #1f4e79;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 7px 16px;
+            border-radius: 999px;
+            margin-bottom: 18px;
+        ">
+            Fun English · Spring 2026
+        </div>
+
         <h1 style="
             color:#1f4e79;
-            margin-bottom: 12px;
-            font-size: 38px;
+            margin: 8px 0 14px 0;
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
         ">
             Welcome to Fun English!
         </h1>
+
         <p style="
-            font-size:22px;
-            line-height:1.7;
-            color:#333;
-            margin:0;
+            font-size:23px;
+            line-height:1.75;
+            color:#34495e;
+            margin:0 auto;
+            max-width: 780px;
         ">
             Learn English step by step through words, listening, speaking, reading, and fun activities.
         </p>
@@ -41,7 +65,7 @@ st.markdown(
         font-size:30px;
         margin-bottom:18px;
     ">
-        ✨ Course objectives
+        ✨ Course Objectives
     </h2>
     """,
     unsafe_allow_html=True
