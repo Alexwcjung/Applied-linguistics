@@ -26,26 +26,32 @@ def make_audio(word):
 # 학생마다 같은 순서로 나오도록 random.shuffle 사용 안 함
 # ---------------------------
 word_data = [
-    {"word": "run", "answer": "달리다", "picture": "🏃", "choices": ["달리다", "말하다", "축구하다"]},
-    {"word": "talk", "answer": "말하다", "picture": "🗣️", "choices": ["말하다", "앉다", "닫다"]},
-    {"word": "eat", "answer": "먹다", "picture": "🍽️", "choices": ["먹다", "자다", "걷다"]},
-    {"word": "sleep", "answer": "자다", "picture": "😴", "choices": ["웃다", "자다", "마시다"]},
-    {"word": "drink", "answer": "마시다", "picture": "🥤", "choices": ["열다", "마시다", "던지다"]},
-    {"word": "go", "answer": "가다", "picture": "➡️", "choices": ["오다", "가다", "보다"]},
-    {"word": "come", "answer": "오다", "picture": "👋", "choices": ["오다", "쓰다", "듣다"]},
-    {"word": "see", "answer": "보다", "picture": "👀", "choices": ["보다", "팔다", "씻다"]},
-    {"word": "read", "answer": "읽다", "picture": "📖", "choices": ["읽다", "울다", "만들다"]},
-    {"word": "write", "answer": "쓰다", "picture": "✏️", "choices": ["쓰다", "타다", "닫다"]},
-    {"word": "open", "answer": "열다", "picture": "📂", "choices": ["씻다", "열다", "웃다"]},
-    {"word": "close", "answer": "닫다", "picture": "🚪", "choices": ["닫다", "춤추다", "돕다"]},
-    {"word": "sit", "answer": "앉다", "picture": "🪑", "choices": ["서다", "앉다", "자르다"]},
-    {"word": "stand", "answer": "서다", "picture": "🧍", "choices": ["날다", "서다", "그리다"]},
-    {"word": "walk", "answer": "걷다", "picture": "🚶", "choices": ["걷다", "노래하다", "수영하다"]},
-    {"word": "jump", "answer": "뛰다", "picture": "🤾", "choices": ["기다리다", "뛰다", "배우다"]},
-    {"word": "laugh", "answer": "웃다", "picture": "😂", "choices": ["웃다", "주다", "끝내다"]},
-    {"word": "cry", "answer": "울다", "picture": "😭", "choices": ["울다", "찾다", "잃어버리다"]},
-    {"word": "sing", "answer": "노래하다", "picture": "🎤", "choices": ["노래하다", "일어나다", "공부하다"]},
-    {"word": "swim", "answer": "수영하다", "picture": "🏊", "choices": ["수영하다", "요리하다", "청소하다"]},
+    {"word": "run", "answer": "달리다", "picture": "🏃", "choices": ["달리다", "말하다", "축구하다"]},          # 1번
+    {"word": "talk", "answer": "말하다", "picture": "🗣️", "choices": ["앉다", "말하다", "닫다"]},             # 2번
+    {"word": "eat", "answer": "먹다", "picture": "🍽️", "choices": ["자다", "걷다", "먹다"]},                  # 3번
+
+    {"word": "sleep", "answer": "자다", "picture": "😴", "choices": ["웃다", "자다", "마시다"]},              # 2번
+    {"word": "drink", "answer": "마시다", "picture": "🥤", "choices": ["열다", "던지다", "마시다"]},           # 3번
+    {"word": "go", "answer": "가다", "picture": "➡️", "choices": ["가다", "오다", "보다"]},                   # 1번
+
+    {"word": "come", "answer": "오다", "picture": "👋", "choices": ["쓰다", "듣다", "오다"]},                 # 3번
+    {"word": "see", "answer": "보다", "picture": "👀", "choices": ["팔다", "보다", "씻다"]},                  # 2번
+    {"word": "read", "answer": "읽다", "picture": "📖", "choices": ["읽다", "울다", "만들다"]},               # 1번
+
+    {"word": "write", "answer": "쓰다", "picture": "✏️", "choices": ["타다", "닫다", "쓰다"]},                # 3번
+    {"word": "open", "answer": "열다", "picture": "📂", "choices": ["씻다", "열다", "웃다"]},                 # 2번
+    {"word": "close", "answer": "닫다", "picture": "🚪", "choices": ["닫다", "춤추다", "돕다"]},              # 1번
+
+    {"word": "sit", "answer": "앉다", "picture": "🪑", "choices": ["서다", "자르다", "앉다"]},                # 3번
+    {"word": "stand", "answer": "서다", "picture": "🧍", "choices": ["날다", "서다", "그리다"]},              # 2번
+    {"word": "walk", "answer": "걷다", "picture": "🚶", "choices": ["걷다", "노래하다", "수영하다"]},         # 1번
+
+    {"word": "jump", "answer": "뛰다", "picture": "🤾", "choices": ["기다리다", "배우다", "뛰다"]},           # 3번
+    {"word": "laugh", "answer": "웃다", "picture": "😂", "choices": ["주다", "웃다", "끝내다"]},             # 2번
+    {"word": "cry", "answer": "울다", "picture": "😭", "choices": ["울다", "찾다", "잃어버리다"]},           # 1번
+
+    {"word": "sing", "answer": "노래하다", "picture": "🎤", "choices": ["일어나다", "공부하다", "노래하다"]}, # 3번
+    {"word": "swim", "answer": "수영하다", "picture": "🏊", "choices": ["요리하다", "수영하다", "청소하다"]}, # 2번
 ]
 
 
