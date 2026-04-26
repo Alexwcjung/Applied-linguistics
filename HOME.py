@@ -3,7 +3,7 @@ import streamlit as st
 st.markdown("#### Spring 2026")
 st.caption("This page is continuously updated.")
 
-IMAGE_URL = "https://raw.githubusercontent.com/Alexwcjung/Fun-English/main/a143182b-832c-4a27-87fb-74214eabb338.png"
+IMAGE_URL = "https://raw.githubusercontent.com/Alexwcjung/Fun-English/main/a143182b-832c-4a27-87fb-74214eabb338.png?v=3"
 
 st.image(
     IMAGE_URL,
